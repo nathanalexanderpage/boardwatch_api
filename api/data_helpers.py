@@ -45,5 +45,3 @@ def get_platform_by_id(id):
         return None
 
     return Platform(id=p[0], name=p[1], is_brand_missing_from_name=p[2], platform_family_id=p[3], platform_family_name=p[4], model_no=p[5], storage_capacity=p[6], description=p[7], disambiguation=p[8], relevance=p[9])
-
-
