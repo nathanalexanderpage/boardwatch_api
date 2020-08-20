@@ -1,7 +1,7 @@
 from flask import jsonify, request, Response
 from api import app
 
-from .data_helpers import get_all_platforms, get_edition_by_id, get_editions_by_platform_id, get_platform_by_id, get_searched_editions, get_searched_platforms
+from .data_helpers import get_all_games, get_all_platforms, get_edition_by_id, get_editions_by_platform_id, get_platform_by_id, get_searched_editions, get_searched_platforms
 from .helpers import dictify, dictify_all
 
 
@@ -66,4 +66,11 @@ def search_editions_route():
     q = request.args.get('q')
     editions = get_searched_editions(q)
     dictified = dictify_all(editions)
+    return jsonify(dictified)
+
+
+@app.route('/games')
+def all_games_route():
+    games = get_all_games()
+    dictified = dictify_all(games)
     return jsonify(dictified)

@@ -1,6 +1,6 @@
 import os
 
-from boardwatch_models import Platform, PlatformEdition
+from boardwatch_models import Game, Platform, PlatformEdition
 from dotenv import find_dotenv, load_dotenv
 import psycopg2 as db
 
@@ -209,3 +209,28 @@ def get_searched_editions(q):
         all_editions.append(current)
         
     return all_editions
+
+
+def get_all_games():
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT
+        g.id,
+        g.name,
+        g.year_first_release,
+        g.is_bootleg
+        FROM games as g
+        ORDER BY g.name, g.year_first_release;
+        """)
+    games = cur.fetchall()
+
+    all_games = []
+
+    for g in games:
+        current = Game(id=g[0], name=g[1], year_first_release=g[2], is_bootleg=g[3])
+
+        all_games.append(current)
+
+    return all_games
