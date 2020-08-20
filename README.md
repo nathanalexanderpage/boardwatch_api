@@ -8,7 +8,7 @@ An API to interface with decoupled frontends. Provides search functionality to a
 - [x] `[GET] /platforms` Read all platforms
 - [x] `[GET] /platforms/<id>` Read platform by ID
 - [x] `[GET] /platforms/search` basic platform search
-- [ ] `[GET] /platforms/<id>/platform-editions` Read all platform editions for console
+- [x] `[GET] /platforms/<id>/platform-editions` Read all platform editions for console
 - [ ] `[GET] /platform-editions/<id>` Read platform edition by ID
 - [ ] `[GET] /platform-editions/search` basic platform edition search
 - [ ] `[GET] /games` Read all games

@@ -1,6 +1,6 @@
 import os
 
-from boardwatch_models import Platform
+from boardwatch_models import Platform, PlatformEdition
 from dotenv import find_dotenv, load_dotenv
 import psycopg2 as db
 
@@ -112,3 +112,34 @@ def get_searched_platforms(q=''):
         all_platforms.append(current)
         
     return all_platforms
+
+def get_editions_by_platform_id(id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT
+        pe.id,
+        pe.name,
+        pe.platform_id,
+        pe.official_color,
+        pe.has_matte,
+        pe.has_transparency,
+        pe.has_gloss,
+        pe.note,
+        pe.image_url
+        FROM platform_editions as pe
+        JOIN platforms as p ON pe.platform_id = p.id
+        WHERE pe.platform_id = %s;
+        """, (id,))
+
+    editions = cur.fetchall()
+
+    all_platform_editions = []
+
+    for e in editions:
+        current = PlatformEdition(id=e[0], name=e[1], official_color=e[3], has_matte=e[4], has_transparency=e[5], has_gloss=e[6], note=e[7], image_url=e[8])
+
+        all_platform_editions.append(current)
+    
+    return all_platform_editions
