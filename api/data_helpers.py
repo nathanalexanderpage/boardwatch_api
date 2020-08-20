@@ -234,3 +234,24 @@ def get_all_games():
         all_games.append(current)
 
     return all_games
+
+
+def get_game_by_id(id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT
+        g.id,
+        g.name,
+        g.year_first_release,
+        g.is_bootleg
+        FROM games as g
+        WHERE g.id=%s LIMIT 1;
+        """, (id,))
+    g = cur.fetchone()
+
+    if g == None:
+        return None
+
+    return Game(id=g[0], name=g[1], year_first_release=g[2], is_bootleg=g[3])
