@@ -143,3 +143,29 @@ def get_editions_by_platform_id(id):
         all_platform_editions.append(current)
     
     return all_platform_editions
+
+
+def get_edition_by_id(id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT
+        e.id,
+        e.name,
+        e.platform_id,
+        e.official_color,
+        e.has_matte,
+        e.has_transparency,
+        e.has_gloss,
+        e.note,
+        e.image_url
+        FROM platform_editions as e
+        WHERE e.id=%s LIMIT 1;
+        """, (id,))
+    e = cur.fetchone()
+
+    if e == None:
+        return None
+
+    return PlatformEdition(id=e[0], name=e[1], official_color=e[3], has_matte=e[4], has_transparency=e[5], has_gloss=e[6], note=e[7], image_url=e[8])
