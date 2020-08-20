@@ -75,6 +75,7 @@ def get_platform_by_id(id):
 
     return Platform(id=p[0], name=p[1], is_brand_missing_from_name=p[2], platform_family_id=p[3], platform_family_name=p[4], model_no=p[5], storage_capacity=p[6], description=p[7], disambiguation=p[8], relevance=p[9])
 
+
 def get_searched_platforms(q=''):
     conn = get_db_connection()
     cur = conn.cursor()
@@ -112,6 +113,7 @@ def get_searched_platforms(q=''):
         all_platforms.append(current)
         
     return all_platforms
+
 
 def get_editions_by_platform_id(id):
     conn = get_db_connection()
@@ -169,3 +171,41 @@ def get_edition_by_id(id):
         return None
 
     return PlatformEdition(id=e[0], name=e[1], official_color=e[3], has_matte=e[4], has_transparency=e[5], has_gloss=e[6], note=e[7], image_url=e[8])
+
+
+def get_searched_editions(q):
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    like_q = '%' + q + '%'
+    data_dict = {
+        'q': q,
+        'like_q': like_q,
+    }
+
+    cur.execute("""
+        SELECT
+        e.id,
+        e.name,
+        e.platform_id,
+        e.official_color,
+        e.has_matte,
+        e.has_transparency,
+        e.has_gloss,
+        e.note,
+        e.image_url
+        FROM platform_editions as e
+        WHERE e.name ILIKE %(like_q)s OR e.official_color ILIKE %(like_q)s
+        ORDER BY e.name, e.official_color;
+        """, data_dict)
+
+    editions = cur.fetchall()
+
+    all_editions = []
+
+    for e in editions:
+        current = PlatformEdition(id=e[0], name=e[1], official_color=e[3], has_matte=e[4], has_transparency=e[5], has_gloss=e[6], note=e[7], image_url=e[8])
+
+        all_editions.append(current)
+        
+    return all_editions
