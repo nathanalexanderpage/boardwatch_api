@@ -1,40 +1,41 @@
 # Boardwatch API
 
 ## Splash
-An API to interface with frontends in development. Provides search functionality to amassed consoles, games, and accessories catalog. Subsequently provides presence-tracking service across a collection of secondhand market sites.
+An API to interface with decoupled frontends. Provides search functionality to amassed catalog of consoles, games, and accessories. Subsequently provides presence-tracking service across a collection of secondhand market sites.
 
 ## Development to-do list
-- [x] Read all platforms
-- [x] Read platform by ID
-- [x] basic platform search
-- [ ] Read all platform editions for console
-- [ ] Read platform edition by ID
-- [ ] basic platform edition search
-- [ ] Read all games
-- [ ] Read game by ID
-- [ ] basic game search
-- [ ] Read all accessories
-- [ ] Read accessory by ID
-- [ ] basic accessory search
-- [ ] Create user
-- [ ] Read user
+- [x] `[GET] /` pingable root
+- [x] `[GET] /platforms` Read all platforms
+- [x] `[GET] /platforms/<id>` Read platform by ID
+- [x] `[GET] /platforms/search` basic platform search
+- [ ] `[GET] /platforms/<id>/platform-editions` Read all platform editions for console
+- [ ] `[GET] /platform-editions/<id>` Read platform edition by ID
+- [ ] `[GET] /platform-editions/search` basic platform edition search
+- [ ] `[GET] /games` Read all games
+- [ ] `[GET] /games/<id>` Read game by ID
+- [ ] `[GET] /games/search` basic game search
+- [ ] `[GET] /accessories` Read all accessories
+- [ ] `[GET] /accessories/<id>` Read accessory by ID
+- [ ] `[GET] /accessories/search` basic accessory search
+- [ ] `[POST] /auth/signup` Create user
+- [ ] `[GET] /account` Read own user profile
 - [ ] auth middleware
-- [ ] Create platform watch
-- [ ] Read platform watch
-- [ ] Update platform watch
-- [ ] Delete platform watch
-- [ ] Create edition watch
-- [ ] Read edition watch
-- [ ] Update edition watch
-- [ ] Delete edition watch
-- [ ] Create game watch
-- [ ] Read game watch
-- [ ] Update game watch
-- [ ] Delete game watch
-- [ ] Create accessory watch
-- [ ] Read accessory watch
-- [ ] Update accessory watch
-- [ ] Delete accessory watch
-- [ ] Update user
-- [ ] Delete user
+- [ ] `[POST] /platforms/watch` Create platform watch
+- [ ] `[GET] /platforms/watch/<id>` Read platform watch
+- [ ] `[PUT] /platforms/watch/<id>` Update platform watch
+- [ ] `[DELETE] /platforms/watch/<id>` Delete platform watch
+- [ ] `[POST] /platform-editions/watch` Create edition watch
+- [ ] `[GET] /platform-editions/watch/<id>` Read edition watch
+- [ ] `[PUT] /platform-editions/watch/<id>` Update edition watch
+- [ ] `[DELETE] /platform-editions/watch/<id>` Delete edition watch
+- [ ] `[POST] /games/watch` Create game watch
+- [ ] `[GET] /games/watch/<id>` Read game watch
+- [ ] `[PUT] /games/watch/<id>` Update game watch
+- [ ] `[DELETE] /games/watch/<id>`Delete game watch
+- [ ] `[POST] /accessories/watch` Create accessory watch
+- [ ] `[GET] /accessories/watch/<id>` Read accessory watch
+- [ ] `[PUT] /accessories/watch/<id>` Update accessory watch
+- [ ] `[DELETE] /accessories/watch/<id>` Delete accessory watch
+- [ ] `[PUT] /account` Update user
+- [ ] `[DELETE] /account` Delete user
 - [ ] e-mail authentication-based password/e-mail change
