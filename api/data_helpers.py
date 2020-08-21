@@ -46,6 +46,9 @@ def get_all_platforms():
 
         all_platforms.append(current)
 
+    cur.close()
+    conn.close()
+
     return all_platforms
 
 
@@ -69,6 +72,9 @@ def get_platform_by_id(id):
         WHERE p.id=%s LIMIT 1;
         """, (id,))
     p = cur.fetchone()
+
+    cur.close()
+    conn.close()
 
     if p == None:
         return None
@@ -111,6 +117,9 @@ def get_searched_platforms(q=''):
         current = Platform(id=p[0], name=p[1], is_brand_missing_from_name=p[2], platform_family_id=p[3], platform_family_name=p[4], model_no=p[5], storage_capacity=p[6], description=p[7], disambiguation=p[8], relevance=p[9])
 
         all_platforms.append(current)
+
+    cur.close()
+    conn.close()
         
     return all_platforms
 
@@ -143,6 +152,9 @@ def get_editions_by_platform_id(id):
         current = PlatformEdition(id=e[0], name=e[1], official_color=e[3], has_matte=e[4], has_transparency=e[5], has_gloss=e[6], note=e[7], image_url=e[8])
 
         all_platform_editions.append(current)
+
+    cur.close()
+    conn.close()
     
     return all_platform_editions
 
@@ -166,6 +178,9 @@ def get_edition_by_id(id):
         WHERE e.id=%s LIMIT 1;
         """, (id,))
     e = cur.fetchone()
+
+    cur.close()
+    conn.close()
 
     if e == None:
         return None
@@ -208,6 +223,9 @@ def get_searched_editions(q):
 
         all_editions.append(current)
         
+    cur.close()
+    conn.close()
+        
     return all_editions
 
 
@@ -233,6 +251,9 @@ def get_all_games():
 
         all_games.append(current)
 
+    cur.close()
+    conn.close()
+
     return all_games
 
 
@@ -250,6 +271,9 @@ def get_game_by_id(id):
         WHERE g.id=%s LIMIT 1;
         """, (id,))
     g = cur.fetchone()
+
+    cur.close()
+    conn.close()
 
     if g == None:
         return None
@@ -285,5 +309,8 @@ def get_searched_games(q):
         current = Game(id=g[0], name=g[1], year_first_release=g[2], is_bootleg=g[3])
 
         all_games.append(current)
+
+    cur.close()
+    conn.close()
         
     return all_games
