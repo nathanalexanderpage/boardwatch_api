@@ -1,7 +1,7 @@
 from flask import jsonify, request, Response
 from api import app
 
-from .data_helpers import get_all_games, get_all_platforms, get_game_by_id, get_edition_by_id, get_editions_by_platform_id, get_platform_by_id, get_searched_editions, get_searched_platforms
+from .data_helpers import get_all_games, get_all_platforms, get_game_by_id, get_edition_by_id, get_editions_by_platform_id, get_platform_by_id, get_searched_games, get_searched_editions, get_searched_platforms
 from .helpers import dictify, dictify_all
 
 
@@ -84,3 +84,11 @@ def certain_game_route(game_id):
         return Response(response="404 Game not found", status=404)
     gdict = dictify(g)
     return jsonify(gdict)
+
+
+@app.route('/games/search')
+def search_games_route():
+    q = request.args.get('q')
+    games = get_searched_games(q)
+    dictified = dictify_all(games)
+    return jsonify(dictified)

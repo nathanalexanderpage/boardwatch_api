@@ -13,7 +13,7 @@ An API to interface with decoupled frontends. Provides search functionality to a
 - [x] `[GET] /platform-editions/search` basic platform edition search
 - [x] `[GET] /games` Read all games
 - [x] `[GET] /games/<id>` Read game by ID
-- [ ] `[GET] /games/search` basic game search
+- [x] `[GET] /games/search` basic game search
 - [ ] `[GET] /accessories` Read all accessories
 - [ ] `[GET] /accessories/<id>` Read accessory by ID
 - [ ] `[GET] /accessories/search` basic accessory search

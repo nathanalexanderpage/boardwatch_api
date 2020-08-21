@@ -255,3 +255,35 @@ def get_game_by_id(id):
         return None
 
     return Game(id=g[0], name=g[1], year_first_release=g[2], is_bootleg=g[3])
+
+def get_searched_games(q):
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    like_q = '%' + q + '%'
+    data_dict = {
+        'q': q,
+        'like_q': like_q,
+    }
+
+    cur.execute("""
+        SELECT
+        g.id,
+        g.name,
+        g.year_first_release,
+        g.is_bootleg
+        FROM games as g
+        WHERE g.name ILIKE %(like_q)s
+        ORDER BY g.name, g.year_first_release DESC;
+        """, data_dict)
+
+    games = cur.fetchall()
+
+    all_games = []
+
+    for g in games:
+        current = Game(id=g[0], name=g[1], year_first_release=g[2], is_bootleg=g[3])
+
+        all_games.append(current)
+        
+    return all_games
