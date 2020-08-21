@@ -18,8 +18,9 @@ An API to interface with decoupled frontends. Provides search functionality to a
 - [ ] `[GET] /accessories/<id>` Read accessory by ID
 - [ ] `[GET] /accessories/search` basic accessory search
 - [ ] `[POST] /auth/signup` Create user
-- [ ] `[GET] /account` Read own user profile
+- [ ] `[POST] /auth/login` user login
 - [ ] auth middleware
+- [ ] `[GET] /account` Read own user profile
 - [ ] `[POST] /platforms/watch` Create platform watch
 - [ ] `[GET] /platforms/watch/<id>` Read platform watch
 - [ ] `[PUT] /platforms/watch/<id>` Update platform watch
