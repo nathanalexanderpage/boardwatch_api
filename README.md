@@ -3,6 +3,10 @@
 ## Splash
 An API to interface with decoupled frontends. Provides search functionality to amassed catalog of consoles, games, and accessories. Subsequently provides presence-tracking service across a collection of secondhand market sites.
 
+## Setup
+
+First [`boardwatch_core`](https://github.com/nathanalexanderpage/boardwatch_core) must be set up and running without error, as this API relies on its `boardwatch` database.
+
 ## Development to-do list
 - [x] `[GET] /` pingable root
 - [x] `[GET] /platforms` Read all platforms
