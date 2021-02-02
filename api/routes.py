@@ -35,12 +35,12 @@ def all_platforms_route():
 
 @app.route('/platforms/<platform_id>')
 def certain_platform_route(platform_id):
+    print(platform_id)
     p = get_platform_by_id(platform_id)
-    print(p)
     if p == None:
         return Response(response="404 Platform not found", status=404)
-    pdict = dictify(p)
-    return jsonify(pdict)
+    p.editions = get_editions_by_platform_id(platform_id)
+    return jsonify(p.jsonify())
 
 
 @app.route('/platforms/<platform_id>/platform-editions')
