@@ -130,26 +130,38 @@ def get_editions_by_platform_id(id):
 
     cur.execute("""
         SELECT
-        pe.id,
-        pe.name,
-        pe.platform_id,
-        pe.official_color,
-        pe.has_matte,
-        pe.has_transparency,
-        pe.has_gloss,
-        pe.note,
-        pe.image_url
-        FROM platform_editions as pe
-        JOIN platforms as p ON pe.platform_id = p.id
-        WHERE pe.platform_id = %s;
-        """, (id,))
+            pe.id AS id,
+            pe.name AS name,
+            pe.official_color AS official_color,
+            pe.has_matte AS has_matte,
+            pe.has_transparency AS has_transparency,
+            pe.has_gloss AS has_gloss,
+            pe.note AS note,
+            pe.image_url AS image_url,
+            x.colors,
+            p.id AS platform_id
+            -- p.name AS platform_name
+            FROM platforms AS p
+            JOIN platform_editions AS pe ON pe.platform_id = p.id
+            JOIN
+                (SELECT pe.id AS id, STRING_AGG(c.name,', ') AS colors
+                FROM platform_editions AS pe
+                JOIN colors_platform_editions AS cpe ON cpe.platform_edition_id = pe.id
+                JOIN colors AS c ON c.id = cpe.color_id
+                GROUP BY pe.id
+                ORDER BY pe.id)
+            AS x ON x.id = pe.id
+            WHERE p.id = %s
+            ORDER BY p.id, name, official_color, colors;
+    """, (id,))
 
     editions = cur.fetchall()
 
     all_platform_editions = []
 
     for e in editions:
-        current = PlatformEdition(id=e[0], name=e[1], official_color=e[3], has_matte=e[4], has_transparency=e[5], has_gloss=e[6], note=e[7], image_url=e[8])
+        current = PlatformEdition(id=e[0], name=e[1], official_color=e[2], has_matte=e[3], has_transparency=e[4], has_gloss=e[5], note=e[6], image_url=e[7])
+        current.colors = e[8].split(', ')
 
         all_platform_editions.append(current)
 
